@@ -2,15 +2,14 @@ import tkinter as tk
 from tkinter import filedialog
 from PIL import Image, ImageTk
 import torch
-from model import MNISTModel  # 사용자 정의 모델 클래스
-from predict import predict_image  # 예측 함수
+from model import MNISTModel  # 모델 클래스스
+from predict import predict_image  # 모델 사용(예측) 함수
 
-# 디바이스 설정 (GPU가 사용 가능하면 GPU, 아니면 CPU)
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # 모델 로드
 MODEL_PATH = "model.pth"
-model = MNISTModel()  # 사용자 정의 모델 초기화
+model = MNISTModel()  # 모델 초기화
 model.load_state_dict(torch.load(MODEL_PATH, map_location=DEVICE, weights_only=True))  # 가중치 로드
 model = model.to(DEVICE)  # 모델을 디바이스로 이동
 model.eval()  # 평가 모드 설정
